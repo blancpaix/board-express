@@ -30,7 +30,7 @@ const Board = (sequelize, DataTypes) => sequelize.define('Board', {
 
 }, {
   paranoid : true,
-   modelName : "Boards"
+  modelName : "Boards"
 });
 
 module.exports = Board;

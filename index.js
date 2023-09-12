@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
@@ -11,10 +12,10 @@ const path = require('path');
 
 const PORT = 3000;
 
-sequelize.authenticate()
+sequelize.sync()
   .then(() => {
     console.log('db connetion success!');
-  })
+  });
 
 // 이거는 msa 할때 쓸듯??
 // app.on('mount', (parent) => {
