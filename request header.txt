@@ -1,0 +1,28 @@
+Request Header
+  메시지 컨텐츠와는 관령벗음
+
+  Accept, Accept-*, If-* 와 같은 요청헤더들은 조건부 요청 수행
+  Cookie, User-Agent, Referer 같은 컨텍스트로 정확하게 나타내 서버가 응답에 맞출 수 잇게 함
+
+  CORS는 요청헤더의 하위집합을 simple헤더로 정의하고 항상 인증된것으로 고려되며 preflight 요청에 대한 응답에 명시적으로 나열되지안흔 요청헤더??
+
+  !! Preflight request - 사전 요청
+    본격적인 교차 출처 http 요청 전 서버측에서 그 요청의 메서드와 헤더를 인식하는지 확인하는 CORS 요청
+      Access-control-request-method, origin, Access-control- request-headers 구성
+
+    일반적으로 브라우저에서 자동으로 발생됨
+    ex) delete 메서드 허용하는지 물어봄 => 
+
+
+GET /home.html HTTP/1.1
+Host: developer.mozilla.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:50.0) Gecko/20100101 Firefox/50.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://developer.mozilla.org/testpage.html
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+If-Modified-Since: Mon, 18 Jul 2016 02:36:04 GMT
+If-None-Match: "c561c68d0ba92bbeb8b0fff2a9199f722e3a621a"
+Cache-Control: max-age=0

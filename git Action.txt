@@ -1,0 +1,54 @@
+git Action
+
+트리거가 된다네?
+
+1. ./github/workflows 디렉터리 생성
+2. 해당 디렉터리에서 github-actions-demo.yml 파일 생성
+3. 이거 복사
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+cli 에서 생성을 하는게 아니고
+github 페이지에서 만드는게 커밋 만들면서 저거를 만들어주면 됨... 로컬에서 만드는게 아닌듯?
+
+commit new file
+- Add Github Actions example
+
+-2 create a new branch for this commit and start a pull requetst
+ - octocat-potch-1
+
+PR 이 들어가는데 이게 뭔지?? pull request 가 들어가네?>
+  pr ... 독립적 개발. 그리고 합칠때 리뷰를 진행하기 위함??
+
+    add, commi,t push를 통해서  자신의 origin 에 수정사항 반영
+    push 에 branch 이름을 명시해줘야 함
+  pr 생성
+    fork & clone 한 리포지터리 (내꺼)로 들어오면 compare & pr 버튼 활성화 됨
+    메시지 작성하고 PR 생성하면 됨
+
+  PR 받으면 코드 변경내역 확인, Merge 여부 판단하면 됨
+
+  MErge 이후 동기화 및 brach 삭제
+    $ git pull ASNYC_REMOTE_REPOS_DISPLAY_NAME
+    $ git branch -d BRANCH_NAME_TO_DELETE
+  
+뭐 이게 끝인건가??
+  즉시 push 하는게 아니라 pr 해서 merge 하는데 pr로 인해서 gitaction 이 작동한다??
+  
+
