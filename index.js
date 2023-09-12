@@ -1,17 +1,20 @@
 const express = require('express');
 const app = express();
-const http = require('http');
-const https = require('https');
 
+// const http = require('http');
+// const https = require('https');
+
+const sequelize = require('./model/index').sequelize;
 const BoardRouter = require('./router/BoardRouter');
 const UserRouter = require('./router/UserRouter');
 const path = require('path');
 
 const PORT = 3000;
 
-
-// const {Sequelize }  = require('sequelize');
-// const sequelize = new Sequelize('mysql://user:pass@localhost:5432/DB_NAME');
+sequelize.authenticate()
+  .then(() => {
+    console.log('db connetion success!');
+  })
 
 // 이거는 msa 할때 쓸듯??
 // app.on('mount', (parent) => {
