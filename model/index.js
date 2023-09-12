@@ -12,7 +12,6 @@ db.Sequelize = Sequelize;
 db.Board = require('./Board')(sequelize, Sequelize);
 db.User = require('./User')(sequelize, Sequelize);
 
-db.User.hasMany( db.Board, {foreignKey : 'idx' });
-db.Board.belongsTo( db.User, { foreignKey : 'idx' });
+db.User.hasMany( db.Board, { foreignKey : 'authoerId' });
 
 module.exports = db;

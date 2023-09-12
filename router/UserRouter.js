@@ -3,7 +3,6 @@ const router = require('express').Router({
   strict : false,
 });
 
-const userObj = new Object();
 
 router.get('/', (req, res) => {
   console.log('Auth Router testing...');
@@ -37,7 +36,4 @@ router.post('/signin', (req, res) => {
 
 // module.exports = router;
 
-module.exports = {
-  router,
-  userObj
-}
+module.exports =  router;

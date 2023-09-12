@@ -19,12 +19,12 @@ const Board = (sequelize, DataTypes) => sequelize.define('Board', {
       max : 2000
     },
   },
-  author: {
-    type : DataTypes.STRING,
-    allowNull : false,
-  },
+  // author: {
+  //   type : DataTypes.STRING,
+  //   allowNull : false,
+  // },
   authoerId: {
-    type : DataTypes.STRING,
+    type : DataTypes.UUID,
     allowNull : false,
   }
 

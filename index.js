@@ -25,7 +25,7 @@ sequelize.sync()
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public'), { etag : true, maxAge : 900000 }));
 
-app.use('/user', UserRouter.router);
+app.use('/user', UserRouter);
 app.use('/board', BoardRouter);
 
 app.use((req, res, next) => {
