@@ -1,19 +1,19 @@
-// ResponseCode 정의
+// Code Number 정의
 // [0-2] HTTP status code
-// [3-4] 11 : User, 12: Board
+// [3-4] 10: general, 11 : User, 12: Board, 20 : Token
 // [5-7] 일련번호
 
-// ErrorCode 정의
-// [0-2] HTTP status code
-// [3-4] 10 : general, 11 : User, 12: Board
-// [5-7] 일련번호
-
-const responseHnalder = function(data, resCode) {
+const responseHandler = function(data, resCode) {
   const state = { status : "success", code : resCode };
-
+  
   switch(resCode) {
+    // 회원가입 완료
     case "20011001" :
       state.data = data;
+      break;
+    // 로그인 & 토큰 발급
+    case "20020001":
+      state.tokens = data;
       break;
     default : 
       break;
@@ -52,6 +52,6 @@ const errorHandler = function(errorCode) {
 };
 
 module.exports = {
-  responseHnalder,
+  responseHandler,
   errorHandler,
 }

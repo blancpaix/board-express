@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const db = {};
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -8,10 +8,13 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.Op = Op;
 
 db.Board = require('./Board')(sequelize, Sequelize);
 db.User = require('./User')(sequelize, Sequelize);
+db.Token = require('./Token')(sequelize, Sequelize);
 
-db.User.hasMany( db.Board, { foreignKey : 'authoerId' });
+db.User.hasMany( db.Board, { foreignKey : 'authorId' });
+db.User.hasMany( db.Token, { foreignKey: 'userId'})
 
 module.exports = db;

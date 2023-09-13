@@ -1,5 +1,6 @@
 const User = require('../model').User;
 const bcrypt = require('bcrypt');
+const { createAccessToken, createRefreshToken } = require('./TokenService');
 
 const SALT_ROUND = 12;
 
@@ -21,22 +22,27 @@ const createUser = async (email, displayName, password) => {
     password: hashedPassword,
   });
 
-  
   return id.dataValues;
 };
 
-const verifyUser = (email, password) => {
-  const user = findUser(email);
-  
+const verifyUser = async (email, password, agent) => {
+  const user = await findUser(email);
+
+  // 비밀번호 확인이 비용이 더 적을듯?
   if (bcrypt.compare(password, user.password)) {
-    // 로그인 완료
+    const tokens = {};
+    tokens.accessToken = await createAccessToken(user.idx);
+    tokens.refreshToken = await createRefreshToken(user.idx, agent);
+
+    return tokens;
   } else {
     throw Error(40111001);
   }
-}
+};
+
 
 module.exports = {
   findUser,
   createUser,
-
+  verifyUser
 };

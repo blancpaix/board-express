@@ -1,7 +1,7 @@
 const asyncHandler = require('../AsyncHandler');
 const { userPropsChecker } = require('../Constraint');
-const { responseHnalder } = require('../ResponseHandler');
-const { findUser, createUser } = require('../Service/UserService');
+const { responseHandler } = require('../ResponseHandler');
+const { findUser, createUser, verifyUser } = require('../Service/UserService');
 
 const router = require('express').Router({
   caseSensitive : false,
@@ -29,8 +29,8 @@ router.post('/signup', asyncHandler(async (req, res, next) => {
   await createUser(email, displayName, password)
     .then(signupData => {
       const data = Object.assign(req.body, { uid : signupData.idx, createdAt : signupData.createdAt});
-      const responseData = responseHnalder(data, "20011001");
-      console.log('resData ', responseData);
+      const responseData = responseHandler(data, "20011001");
+      
       res.status(parseInt(responseData.code.slice(0, 3))).json(responseData);
     })
     .catch(err => {
@@ -41,12 +41,13 @@ router.post('/signup', asyncHandler(async (req, res, next) => {
 
 router.post('/signin', asyncHandler(async (req, res) => {
   const { email, password }  = req.body;
+  const userAgent = req.headers['user-agent'];
   userPropsChecker(req.body);
 
-  const result = verifyUser(email, password);
+  const tokens = await verifyUser(email, password, userAgent);
+  const responseData = responseHandler(tokens, "20020001");
 
-
-  res.status(200).send();
+  res.status(200).json(responseData);
 }));
 
 

@@ -19,7 +19,7 @@ const Board = (sequelize, DataTypes) => sequelize.define('Board', {
       max : 2000
     },
   },
-  authoerId: {
+  authorId: {
     type : DataTypes.UUID,
     allowNull : false,
   }
