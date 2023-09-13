@@ -5,7 +5,7 @@
 
 const responseHandler = function(data, resCode) {
   const state = { status : "success", code : resCode };
-  
+
   switch(resCode) {
     // 회원가입 완료
     case "20011001" :
@@ -26,6 +26,12 @@ const errorHandler = function(errorCode) {
   const state = { status : "failed", code : errorCode };
   
   switch(errorCode) {
+    case "40120001" :
+      state.message = "인증 토큰이 만료되었습니다. 다시 로그인을 해주세요."
+      break;
+    case "412200001" :
+      state.message = "잘못된 접근입니다.";
+      break;
     case "41211001":
       state.message = "이메일을 확인하세요."
       break;

@@ -4,19 +4,6 @@ const jwt = require('jsonwebtoken');
 
 const TOKEN_SECRET='ENOUGH_LONG_SECRET_KEY';
 
-
-const getVerifiedRefreshToken = async (userId, refreshToken, agent) => {
-  return await Token.findOne({
-    where: {
-      [Op.and] : [
-        { agent },
-        { userId },
-        { refreshToken }
-      ]
-    }
-  });
-};
-
 const getRefreshToken = async (userId, agent) => {
   return Token.findOne({
     where : {
@@ -73,8 +60,43 @@ const createRefreshToken = async (userId, agent) => {
   return refreshToken;
 };
 
+const verifyToken = token => {
+  try {
+    const payload = jwt.verify(token, TOKEN_SECRET);
+
+    return { result : true, user: payload.user }
+  } catch (err) {
+    return { result : false };
+  }
+};
+
+const verifyRefreshToken = async (token, agent) => {
+  try {
+    const payload = jwt.verify(token, TOKEN_SECRET);
+    const storedRefreshToken = await getRefreshToken(payload.user, agent);
+    
+    if (storedRefreshToken == null) {
+      throw Error("40120001");
+    }
+    if (storedRefreshToken.refreshToken != token 
+      || storedRefreshToken.userId != payload.user 
+      || storedRefreshToken.agent != payload.agent)
+      throw Error("412200001")
+
+    return { result : true, user : payload.user, agent : payload.agent };
+  } catch (err) {
+    if (err.message == "jwt must be provided") {
+      err.message = "412200001";
+    };
+
+    return { result : false, message : err.message}
+  }
+}
+
 module.exports = {
   getRefreshToken,
   createAccessToken,
-  createRefreshToken
+  createRefreshToken,
+  verifyToken,
+  verifyRefreshToken
 }

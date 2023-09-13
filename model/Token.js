@@ -18,10 +18,10 @@ const Token = (sequelize, DataTypes) => sequelize.define('Token', {
     type : DataTypes.UUID,
     allowNull : false,
   },
-  createdAt: {
-    type : DataTypes.DATEONLY,
-    defaultValuie: DataTypes.NOW,
-    
+  // 공식문서랑 안맞음
+  updatedAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal("NOW()"),
   }
 }, {
   indexes: [
@@ -30,8 +30,7 @@ const Token = (sequelize, DataTypes) => sequelize.define('Token', {
       fields: ['userId']
     }
   ],
-  paranoid : false,
-  timestamps : false,
+  
 });
 
 module.exports = Token;
