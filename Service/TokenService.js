@@ -2,7 +2,6 @@ const Token = require('../model').Token;
 const Op = require('../model').Op;
 const jwt = require('jsonwebtoken');
 
-const TOKEN_SECRET='ENOUGH_LONG_SECRET_KEY';
 
 const getRefreshToken = async (userId, agent) => {
   return Token.findOne({
@@ -21,7 +20,7 @@ const createAccessToken = async (userUid) => {
     user : userUid,
   };
 
-  return jwt.sign(payload, TOKEN_SECRET, {
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_KEY, {
     expiresIn : '1h',
     issuer : "http://localhost:3000",
   });
@@ -34,7 +33,7 @@ const createRefreshToken = async (userId, agent) => {
     agent,
   };
 
-  const refreshToken = jwt.sign(payload, TOKEN_SECRET, {
+  const refreshToken = jwt.sign(payload, process.env.ACCESS_TOKEN_KEY, {
     expiresIn : '90d',
     issuer : "http://localhost:3000",
   });
@@ -62,7 +61,7 @@ const createRefreshToken = async (userId, agent) => {
 
 const verifyToken = token => {
   try {
-    const payload = jwt.verify(token, TOKEN_SECRET);
+    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
 
     return { result : true, user: payload.user }
   } catch (err) {
@@ -72,7 +71,7 @@ const verifyToken = token => {
 
 const verifyRefreshToken = async (token, agent) => {
   try {
-    const payload = jwt.verify(token, TOKEN_SECRET);
+    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
     const storedRefreshToken = await getRefreshToken(payload.user, agent);
     
     if (storedRefreshToken == null) {
