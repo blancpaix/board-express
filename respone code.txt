@@ -36,11 +36,11 @@
   401 : Unauthorized : 비인증
   402 : Payment required - .... 지금은 사용 안함
   403 : Forbidden  - 컨텐츠에 접근할 권리 없음, 클라이언트가 누군지 앎
-  404 : Not found - 요청한 리소스 찾을 수 없음
+  404 : Not found - 요청한 정적 리소스 찾을 수 없음
   405 : Method not allowd : 요청한 메서드는 서버에서 알고있찌만, 제거됨 - 
   406...
   408 : Request Time out - 요청한지 시간이 오래되어 끊김
-  409 : Confilct - 서버의 상태와 충돌함??
+  409 : Confilct - 서버의 상태와 충돌함??, 중복레코드
   410 : Gone -  컨텐츠가 서버에서 영구적으로 삭제되었고, 전달해줄 수 있는 주소가 없음
   411 : Lengh-requried - Content-length 헤더 필드가 정의되지 않은 요청이 들어와 거절
   412 : Precondition faield : 클라이언트 헤더 전제조건이 서버와 일치하지 않음

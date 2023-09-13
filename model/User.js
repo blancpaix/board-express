@@ -3,6 +3,7 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
     type: DataTypes.UUID,
     allowNull : false,
     primaryKey : true,
+    defaultValue : DataTypes.UUIDV1
   },
   displayName : {
     type : DataTypes.STRING,
@@ -21,17 +22,22 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
       isEmail : true,
       // regex 도 넣을수는 있겠다... is Email 이 regex 로 동작하는거일듯?
     },
-    unique :true
+    unique : true
   },
   password:  {
     type: DataTypes.STRING,
     allowNull : false,
-  }
-
-
+  },
 }, {
+  indexes: [
+    {
+      unique : false,
+      fields: ['email']
+    }
+  ],
   paranoid : true,
-  modelName: 'Users'
+  modelName: 'Users',
+  
 });
 
 module.exports = User;
