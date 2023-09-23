@@ -31,7 +31,7 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
 }, {
   indexes: [
     {
-      unique : false,
+      unique : true,
       fields: ['email']
     }
   ],

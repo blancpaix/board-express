@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 
 const getRefreshToken = async (userId, agent) => {
   return Token.findOne({
+    attributes : [
+      'agent', 'refreshToken', 'userId'
+    ],
     where : {
       [Op.and] : [
         {agent},

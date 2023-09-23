@@ -13,7 +13,7 @@ router.post('/checkemail', asyncHandler(async (req, res) => {
   const { email } = req.body;
   userPropsChecker(req.body);
 
-  const user = await findUser(email);
+  const user = await findUser(email);``
   if (user == null) {
     res.status(200).send(true);
   } else {
@@ -46,6 +46,11 @@ router.post('/signin', asyncHandler(async (req, res) => {
 
   const tokens = await verifyUser(email, password, userAgent);
   const responseData = responseHandler(tokens, "20020001");
+
+  res.header({
+    'Authorization' : "Bearer " + tokens.accessToken,
+    'refresh' : tokens.refreshToken,
+  });
 
   res.status(200).json(responseData);
 }));

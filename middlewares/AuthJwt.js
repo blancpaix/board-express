@@ -23,12 +23,12 @@ const verifyJwt = asyncHandler(async (req, res, next) => {
       req.id = decryptedRefreshToken.user;
 
       res.header({
-        'Authorization' : reissuedAccessToken,
+        'Authorization' : "Bearer " + reissuedAccessToken,
         'refresh' : reissuedRefreshToken,
-      })
+      });
       next();
     } else {
-      console.log("이게 안온다느거지??", decryptedRefreshToken.message);
+      
       throw Error(decryptedRefreshToken.message);
     }
   } else {

@@ -6,6 +6,9 @@ const SALT_ROUND = 12;
 
 const findUser = async (email) => {
   return await User.findOne({
+    attributes : [
+      'idx', 'email', 'password'
+    ],
     where : { email }
   });
 };
